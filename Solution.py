@@ -13,5 +13,4 @@ class Solution():
             else:
                 self.solutionType = 'continuous'
                 return
-            
         self.solutionType = 'integer'
