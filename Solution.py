@@ -8,9 +8,11 @@ class Solution():
             self.solutionType = 'infeasible'
             self.solutionValue = None
             self.variablesValues = None
+            self.variables = None
         else:
             self.solutionValue = model.objective_value
             self.variablesValues = [i.x for i in variables]
+            self.variables = variables
             self.defineSolutionType()
     
     def defineSolutionType(self):
