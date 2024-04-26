@@ -46,11 +46,11 @@ class BABTree():
         return True
 
     def checkVars(self, variableValues):
-        closest = abs(variableValues[0] - 0.5)
+        closest = 100000000000
         variableIndex = 0
 
         for i in variableValues:
-            if abs(i - 0.5) < closest:
+            if abs(i - 0.5) < closest and i.is_integer() == False:
                 closest = abs(i - 0.5)
                 variableIndex = variableValues.index(i)
         
