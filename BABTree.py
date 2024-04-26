@@ -1,5 +1,5 @@
 from Solution import Solution
-from mip import CONTINUOUS
+from mip import Constr
 
 class BABTree():
     def __init__(self, model, variables):
@@ -14,6 +14,10 @@ class BABTree():
             return False
         
         solution = self.solutions[0]
+
+        if solution.solutionValue != None and solution.solutionValue < self.Zp:
+            self.popSolution()
+            return True
 
         if solution.solutionType == 'integer':
             self.Zp = solution.solutionValue
@@ -33,24 +37,25 @@ class BABTree():
         solution.model += solution.variables[i] == 0
         solution1 = Solution(solution.model, solution.variables)
 
-                   
+        solution.model.remove((solution.model.constrs[-1]))
+        solution.model += solution.variables[i] == 1
         solution2 = Solution(solution.model, solution.variables)
 
         self.solutions.append(solution1)
         self.solutions.append(solution2)
 
-        self.Zd = max(solution1.solutionValue, solution2.solutionValue)
+        self.setZd(solution1.solutionValue, solution2.solutionValue)
 
         self.popSolution()
 
         return True
 
     def checkVars(self, variableValues):
-        closest = 100000000000
+        closest = float('inf')
         variableIndex = 0
 
         for i in variableValues:
-            if abs(i - 0.5) < closest and i.is_integer() == False:
+            if i.is_integer() == False and abs(i - 0.5) < closest:
                 closest = abs(i - 0.5)
                 variableIndex = variableValues.index(i)
         
@@ -58,6 +63,14 @@ class BABTree():
 
     def popSolution(self):
         self.solutions.pop(0)
+
+    def setZd(self, value1, value2):
+        if value1 != None and value2 != None:
+            self.Zd = max(value1, value2)
+        elif type(value1) == None:
+            self.Zd = value2
+        elif type(value2) == None:
+            self.Zd = value1
 
     def solve(self):
         while self.branch():
