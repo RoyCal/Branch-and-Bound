@@ -22,6 +22,4 @@ Bounds
  0 <= x_4 <= 1
  0 <= x_5 <= 1
  0 <= x_6 <= 1
-Integers
-x_0 x_1 x_2 x_3 x_4 x_5 x_6 
 End
