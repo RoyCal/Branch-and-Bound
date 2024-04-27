@@ -1,5 +1,5 @@
 from Solution import Solution
-from mip import Constr
+from SolutionType import SolutionType
 
 class BABTree():
     def __init__(self, model, variables):
@@ -15,7 +15,7 @@ class BABTree():
         
         solution = self.solutions[0]
 
-        if solution.solutionType == 'infeasible':
+        if solution.solutionType == SolutionType.INFEASIBLE:
             self.popSolution()
             return True
 
@@ -23,7 +23,7 @@ class BABTree():
             self.popSolution()
             return True
 
-        if solution.solutionType == 'binary':
+        if solution.solutionType == SolutionType.BINARY:
             self.Zp = solution.solutionValue
             self.popSolution()
             return True

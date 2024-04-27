@@ -1,11 +1,12 @@
 from mip import OptimizationStatus
+from SolutionType import SolutionType
 
 class Solution():
     def __init__(self, model, variables):
         self.model = model
         self.solution = self.model.optimize()
         if self.solution == OptimizationStatus.INFEASIBLE:
-            self.solutionType = 'infeasible'
+            self.solutionType = SolutionType.INFEASIBLE
             self.solutionValue = None
             self.variablesValues = None
             self.variables = None
@@ -20,9 +21,9 @@ class Solution():
             if i == 0 or i == 1:
                 continue
             else:
-                self.solutionType = 'continuous'
+                self.solutionType = SolutionType.NOT_BINARY
                 return
-        self.solutionType = 'binary'
+        self.solutionType = SolutionType.BINARY
     
     def modelCopy(self):
         pass
