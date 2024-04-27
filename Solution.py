@@ -17,9 +17,12 @@ class Solution():
     
     def defineSolutionType(self):
         for i in self.variablesValues:
-            if float.is_integer(i):
+            if i == 0 or i == 1:
                 continue
             else:
                 self.solutionType = 'continuous'
                 return
-        self.solutionType = 'integer'
+        self.solutionType = 'binary'
+    
+    def modelCopy(self):
+        pass

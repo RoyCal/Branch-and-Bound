@@ -15,31 +15,30 @@ class BABTree():
         
         solution = self.solutions[0]
 
-        if solution.solutionValue != None and solution.solutionValue < self.Zp:
-            self.popSolution()
-            return True
-
-        if solution.solutionType == 'integer':
-            self.Zp = solution.solutionValue
-            self.popSolution()
-            return False
-        
         if solution.solutionType == 'infeasible':
             self.popSolution()
             return True
-        
+
         if solution.solutionValue < self.Zp:
+            self.popSolution()
+            return True
+
+        if solution.solutionType == 'binary':
+            self.Zp = solution.solutionValue
             self.popSolution()
             return True
 
         i = self.checkVars(solution.variablesValues)
 
         solution.model += solution.variables[i] == 0
-        solution1 = Solution(solution.model, solution.variables)
+        modelCopy = solution.model.copy()
+        solution1 = Solution(modelCopy, list(modelCopy.vars))
 
         solution.model.remove((solution.model.constrs[-1]))
+
         solution.model += solution.variables[i] == 1
-        solution2 = Solution(solution.model, solution.variables)
+        modelCopy = solution.model.copy()
+        solution2 = Solution(modelCopy, list(modelCopy.vars))
 
         self.solutions.append(solution1)
         self.solutions.append(solution2)
@@ -55,7 +54,7 @@ class BABTree():
         variableIndex = 0
 
         for i in variableValues:
-            if i.is_integer() == False and abs(i - 0.5) < closest:
+            if i != 0 and i != 1 and abs(i - 0.5) < closest:
                 closest = abs(i - 0.5)
                 variableIndex = variableValues.index(i)
         
