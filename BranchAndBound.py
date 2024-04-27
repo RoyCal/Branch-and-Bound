@@ -1,13 +1,14 @@
 from Solution import Solution
 from SolutionType import SolutionType
 
-class BABTree():
-    def __init__(self, model, variables):
-        self.model = model
-        self.variables = variables
+class BranchAndBound():
+    def __init__(self, model):
+        self.model = model.copy()
+        self.variables = list(self.model.vars)
         self.Zd = float('inf')
         self.Zp = float('-inf')
-        self.solutions = [Solution(self.model, self.variables)]
+        self.solutions = [Solution(self.model)]
+        self.optimalSolutionVarsValues = []
 
     def branch(self):
         if len(self.solutions) == 0:
@@ -25,6 +26,7 @@ class BABTree():
 
         if solution.solutionType == SolutionType.BINARY:
             self.Zp = solution.solutionValue
+            self.optimalSolutionVarsValues = solution.variablesValues
             self.popSolution()
             return True
 
@@ -32,13 +34,13 @@ class BABTree():
 
         solution.model += solution.variables[i] == 0
         modelCopy = solution.model.copy()
-        solution1 = Solution(modelCopy, list(modelCopy.vars))
+        solution1 = Solution(modelCopy)
 
         solution.model.remove((solution.model.constrs[-1]))
 
         solution.model += solution.variables[i] == 1
         modelCopy = solution.model.copy()
-        solution2 = Solution(modelCopy, list(modelCopy.vars))
+        solution2 = Solution(modelCopy)
 
         self.solutions.append(solution1)
         self.solutions.append(solution2)
@@ -71,9 +73,12 @@ class BABTree():
         elif type(value2) == None:
             self.Zd = value1
 
-    def solve(self):
+    def solveAndPrint(self):
         while self.branch():
             pass
             
-        print(self.Zp)
+        print("Valor da solução ótima: ", self.Zp)
+        print("\nValor das variáveis: ")
+        for i in range(len(self.variables)):
+            print(self.variables[i].name, ": ", self.optimalSolutionVarsValues[i])
     

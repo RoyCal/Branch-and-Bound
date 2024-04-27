@@ -2,7 +2,7 @@ from mip import OptimizationStatus
 from SolutionType import SolutionType
 
 class Solution():
-    def __init__(self, model, variables):
+    def __init__(self, model):
         self.model = model
         self.solution = self.model.optimize()
         if self.solution == OptimizationStatus.INFEASIBLE:
@@ -12,8 +12,8 @@ class Solution():
             self.variables = None
         else:
             self.solutionValue = model.objective_value
-            self.variablesValues = [i.x for i in variables]
-            self.variables = variables
+            self.variablesValues = [i.x for i in list(self.model.vars)]
+            self.variables = list(self.model.vars)
             self.defineSolutionType()
     
     def defineSolutionType(self):
