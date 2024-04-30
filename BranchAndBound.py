@@ -1,7 +1,7 @@
 from Solution import Solution
 from SolutionType import SolutionType
 
-class BranchAndBoundBinary():
+class BranchAndBound():
     # Constructor
     def __init__(self, model):
         self.model = model.copy()                   # Cópia do modelo
