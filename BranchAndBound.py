@@ -68,7 +68,7 @@ class BranchAndBound():
         variableIndex = 0
 
         for i in variableValues:
-            if i != 0 and i != 1 and abs(i - 0.5) < closest:
+            if float(i).is_integer() == False and abs(i - 0.5) < closest:
                 closest = abs(i - 0.5)
                 variableIndex = variableValues.index(i)
         
