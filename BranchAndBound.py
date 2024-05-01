@@ -64,12 +64,12 @@ class BranchAndBound():
 
     # Metodo que retona o índice da variável que mais se aproxima de 0.5 e é diferente de 0 e de 1
     def checkVars(self, variableValues):
-        closest = float('inf')
+        lowest = float('inf')
         variableIndex = 0
 
         for i in variableValues:
-            if float(i).is_integer() == False and abs(i - 0.5) < closest:
-                closest = abs(i - 0.5)
+            if float(i).is_integer() == False and abs(i - 0.5) < lowest:
+                lowest = abs(i - 0.5)
                 variableIndex = variableValues.index(i)
         
         return variableIndex
