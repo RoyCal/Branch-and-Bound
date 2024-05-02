@@ -62,7 +62,7 @@ class BranchAndBound():
 
         return True
 
-    # Metodo que retona o índice da variável que mais se aproxima de 0.5 e é diferente de 0 e de 1
+    # Metodo que retona o índice da variável que mais se aproxima de 0.5 e não é inteira
     def checkVars(self, variableValues):
         lowest = float('inf')
         variableIndex = 0
