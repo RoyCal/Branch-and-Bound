@@ -9,4 +9,4 @@ class SolutionType(Enum):
     BINARY = 1
 
     # Solução não binária
-    NOT_BINARY = 2
+    INTEGER = 2

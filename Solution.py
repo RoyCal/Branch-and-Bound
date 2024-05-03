@@ -20,9 +20,9 @@ class Solution():
     # Método que define o tipo da solução
     def defineSolutionType(self):
         for i in self.variablesValues:
-            if i == 0 or i == 1:
+            if float(i).is_integer():
                 continue
             else:
-                self.solutionType = SolutionType.NOT_BINARY
+                self.solutionType = SolutionType.INTEGER
                 return
         self.solutionType = SolutionType.BINARY
