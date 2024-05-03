@@ -23,6 +23,6 @@ class Solution():
             if float(i).is_integer():
                 continue
             else:
-                self.solutionType = SolutionType.INTEGER
+                self.solutionType = SolutionType.CONTINUOUS
                 return
-        self.solutionType = SolutionType.BINARY
+        self.solutionType = SolutionType.INTEGER

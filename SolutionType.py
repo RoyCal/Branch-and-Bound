@@ -5,8 +5,8 @@ class SolutionType(Enum):
     # Solução inviável
     INFEASIBLE = 0
 
-    # Solução binária
-    BINARY = 1
+    # Solução inteira
+    INTEGER = 1
 
-    # Solução não binária
-    INTEGER = 2
+    # Solução contínua
+    CONTINUOUS = 2

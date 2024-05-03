@@ -30,8 +30,8 @@ class BranchAndBound():
             self.bound()
             return True
 
-        # Poda por solução binária
-        if solution.solutionType == SolutionType.BINARY:
+        # Poda por solução inteira
+        if solution.solutionType == SolutionType.INTEGER:
             self.Zp = solution.solutionValue
             self.optimalSolutionVarsValues = solution.variablesValues
             self.bound()
